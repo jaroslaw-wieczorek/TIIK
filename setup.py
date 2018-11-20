@@ -7,8 +7,8 @@ except ImportError:
     cmdclass = {}
 
 setup(
-    name="evilpostman",
+    name="project",
     version="0.1",
-    packages=["evilpostman"],
+    packages=["project"],
     cmdclass=cmdclass,
 )

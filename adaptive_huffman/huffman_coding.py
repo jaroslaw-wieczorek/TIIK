@@ -45,16 +45,25 @@ class HuffmanDecoder(object):
 		if not isinstance(self.codetree, CodeTree):
 			raise ValueError("Invalid current code tree")
 		currentnode = self.codetree.root
+
 		while True:
 			temp = self.input.read_no_eof()
-			if   temp == 0: nextnode = currentnode.leftchild
-			elif temp == 1: nextnode = currentnode.rightchild
-			else: raise AssertionError("Invalid value from read_no_eof()")
+
+			if temp == 0:
+				nextnode = currentnode.leftchild
+
+			elif temp == 1:
+				nextnode = currentnode.rightchild
+
+			else:
+				raise AssertionError("Invalid value from read_no_eof()")
 			
 			if isinstance(nextnode, Leaf):
 				return nextnode.symbol
+
 			elif isinstance(nextnode, InternalNode):
 				currentnode = nextnode
+
 			else:
 				raise AssertionError("Illegal node type")
 
@@ -121,6 +130,7 @@ class FrequencyTable(object):
 	# Returns a code tree that is optimal for the symbol frequencies in this table.
 	# The tree always contains at least 2 leaves (even if they come from symbols with
 	# 0 frequency), to avoid degenerate trees. Note that optimal trees are not unique.
+
 	def build_code_tree(self):
 		# Note that if two nodes have the same frequency, then the tie is broken
 		# by which tree contains the lowest symbol. Thus the algorithm has a
@@ -305,6 +315,7 @@ class CanonicalCode(object):
 	#   * [1, 1, 2, 2, 3, 3, 3, 3]
 	# - CanonicalCode(tree, symbollimit):
 	#   Builds a canonical code from the given code tree.
+
 	def __init__(self, codelengths=None, tree=None, symbollimit=None):
 		if codelengths is not None and tree is None and symbollimit is None:
 			# Check basic validity
@@ -400,8 +411,6 @@ class CanonicalCode(object):
 		assert len(nodes) == 1
 		return CodeTree(nodes[0], len(self.codelengths))
 
-
-
 # ---- Bit-oriented I/O streams ----
 
 # A stream of bits that can be read. Because they come from an underlying byte stream,
@@ -484,4 +493,4 @@ class BitOutputStream(object):
 	def close(self):
 		while self.numbitsfilled != 0:
 			self.write(0)
-self.output.close()
+		self.output.close()

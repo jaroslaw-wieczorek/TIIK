@@ -11,7 +11,7 @@
 # 
 
 import sys
-import huffmancoding
+import huffman_coding
 python3 = sys.version_info.major >= 3
 
 
@@ -23,14 +23,14 @@ def main(args):
 	inputfile, outputfile = args
 	
 	# Perform file decompression
-	with open(inputfile, "rb") as inp, open(outputfile, "wb") as out:
-		decompress(huffmancoding.BitInputStream(inp), out)
+	with open(inputfile, "rb") as inp, open(outputfile, "w") as out:
+		decompress(huffman_coding.BitInputStream(inp), out)
 
 
 def decompress(bitin, out):
 	initfreqs = [1] * 257
-	freqs = huffmancoding.FrequencyTable(initfreqs)
-	dec = huffmancoding.HuffmanDecoder(bitin)
+	freqs = huffman_coding.FrequencyTable(initfreqs)
+	dec = huffman_coding.HuffmanDecoder(bitin)
 	dec.codetree = freqs.build_code_tree()  # Use same algorithm as the compressor
 	count = 0  # Number of bytes written to the output file
 	while True:
@@ -46,7 +46,7 @@ def decompress(bitin, out):
 		if (count < 262144 and is_power_of_2(count)) or count % 262144 == 0:  # Update code tree
 			dec.codetree = freqs.build_code_tree()
 		if count % 262144 == 0:  # Reset frequency table
-			freqs = huffmancoding.FrequencyTable(initfreqs)
+			freqs = huffman_coding.FrequencyTable(initfreqs)
 
 
 def is_power_of_2(x):

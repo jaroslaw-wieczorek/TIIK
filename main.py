@@ -15,8 +15,8 @@ class Node(object):
 		self.weight = w
 
 	def setChildren(self, ln, rn):
-		self.left = ln
-		self.right = rn
+		self.left : Node = ln
+		self.right : Node = rn
 
 	def __repr__(self):	return "%s - %s — %s _ %s" % self.item, self.weight, self.left, self.right
 

@@ -1,0 +1,22 @@
+{
+    "files": [
+        [
+                "evilpostman/gui/*.ui",
+                "evilpostman/gui"
+        ],
+        [
+                "evilpostman/gui/styles/*.qss",
+                "evilpostman/gui/styles"
+        ],
+        [
+                "evilpostman/gui/resources/*.qrc",
+                "evilpostman/gui/"
+        ]
+
+    ],
+    "hooks": [],
+    "pyrcc": "pyrcc5",
+    "pyrcc_options": "",
+    "pyuic": "pyuic5",
+    "pyuic_options": "--from-import"
+}

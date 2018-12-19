@@ -102,6 +102,10 @@ class MainWindow(QMainWindow):
 
             # Return path on file
             self.read_path = fname[0]
+
+            with open(self.read_path, 'r') as file:
+                data = file.read()
+                self.text_input.setPlainText(str(data))
             return fname[0]
 
 
@@ -110,10 +114,13 @@ class MainWindow(QMainWindow):
         fname = QFileDialog.getSaveFileName(self, 'Save file', './')
 
         if fname[0]:
-            f = open(fname[0], 'w')
-
-            # Return path on file
             self.save_path = fname[0]
+            with open(self.save_path, 'w') as file:
+                try:
+                    file.write(str(self.text_output.toPlainText()))
+                except Exception as err:
+                    print(err)
+
             return fname[0]
 
 
@@ -129,9 +136,3 @@ class MainWindow(QMainWindow):
         self.text_output.setText(str(data))# ready_data[1]]))
         self.text_output.append("Entropy: " + str(stats[1]))
 
-
-if __name__ == '__main__':
-    
-    app = QApplication(sys.argv)
-    ex = MainWindow()
-    sys.exit(app.exec_())
